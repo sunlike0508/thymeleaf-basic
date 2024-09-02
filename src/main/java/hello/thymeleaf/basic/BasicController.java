@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +33,7 @@ public class BasicController {
 
         model.addAttribute("data", "Hello <b> Spring </b>");
 
-        return "basic/text-basic";
+        return "basic/text-unescaped";
     }
 
 
@@ -51,6 +55,26 @@ public class BasicController {
         model.addAttribute("userMap", map);
 
         return "basic/variable";
+    }
+
+
+    @GetMapping("/basic-objects")
+    public String basicObjects(Model model, HttpSession session, HttpServletRequest request,
+            HttpServletResponse response) {
+        model.addAttribute("sessionData", "Hello Session");
+        model.addAttribute("request", request);
+        model.addAttribute("response", response);
+        model.addAttribute("servletContext", request.getServletContext());
+        return "basic/basic-objects";
+    }
+
+
+    @Component("helloBean")
+    static class HelloBean {
+
+        public String hello(String data) {
+            return "Hello " + data;
+        }
     }
 
 
