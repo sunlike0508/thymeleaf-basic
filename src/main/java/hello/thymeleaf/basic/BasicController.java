@@ -101,6 +101,13 @@ public class BasicController {
     }
 
 
+    @GetMapping("/attribute")
+    public String attribute(Model model) {
+
+        return "basic/attribute";
+    }
+
+
     @Component("helloBean")
     static class HelloBean {
 
