@@ -108,6 +108,31 @@ public class BasicController {
     }
 
 
+    @GetMapping("/each")
+    public String each(Model model) {
+        addUsers(model);
+
+        return "basic/each";
+    }
+
+
+    @GetMapping("/condition")
+    public String condition(Model model) {
+        addUsers(model);
+
+        return "basic/condition";
+    }
+
+
+    private void addUsers(Model model) {
+        List<User> users = new ArrayList<>();
+        users.add(new User("userA", 10));
+        users.add(new User("userA", 20));
+        users.add(new User("userA", 30));
+        model.addAttribute("users", users);
+    }
+
+
     @Component("helloBean")
     static class HelloBean {
 
